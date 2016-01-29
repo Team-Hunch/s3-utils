@@ -1,0 +1,27 @@
+{
+  "name": "s3-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/uploadUtils",
+  "scripts": {
+    "test": "mocha spec/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.schibsted.io:team-hunch/s3-utils.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.2.33",
+    "debug": "^2.2.0",
+    "lodash": "^4.1.0",
+    "uuid": "^2.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  }
+}
