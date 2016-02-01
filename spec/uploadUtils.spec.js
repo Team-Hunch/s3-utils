@@ -41,7 +41,11 @@ describe('Upload utils', () => {
     })
 
     afterEach(() => {
-
+        fsCreateReadStreamStub.restore()
+        fsCreateWriteStreamStub.restore()
+        fsUnlinkStub.restore()
+        uuidV4Stub.restore()
+        s3PutObjectStub.restore()
     })
 
     it('save file, upload to s3 and delete the temp file', (done) => {
