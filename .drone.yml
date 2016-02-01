@@ -1,6 +1,0 @@
-build:
-  image: node:5.3.0
-  commands:
-    - npm -v
-    - npm install
-    - npm test
