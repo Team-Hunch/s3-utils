@@ -1,4 +1,4 @@
-# s3-utils
+# s3-utils [![Build Status](http://drone.ertrzyiks.me/api/badges/team-hunch/s3-utils/status.svg)](http://drone.ertrzyiks.me/team-hunch/s3-utils)
 
 A utility for uploading images to s3.
 
