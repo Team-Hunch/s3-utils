@@ -59,7 +59,7 @@ describe('Upload utils', () => {
         let expectedTempFilePath = `${config.tempDirectory}tempName`
         let expectedUploadPath = `${config.uploadDirectory}/foo`
 
-        uploadUtils(config).upload('foo', new MockStream.MockReadableStream, { contentType: 'stubContentType' })
+        uploadUtils.init(config).upload('foo', new MockStream.MockReadableStream, { contentType: 'stubContentType' })
             .then((result) => {
                 expect(fsCreateWriteStreamStub).to.have.been.calledOnce
                 expect(fsCreateWriteStreamStub).to.have.been.calledWith(expectedTempFilePath)
