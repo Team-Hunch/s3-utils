@@ -10,13 +10,14 @@ var expect = chai.expect
 const fs = require('fs')
 const uuid = require('uuid')
 const AWS = require('aws-sdk')
+const matches = require('object-matches')
 
 const MockStream = require('./mockStream')
 const uploadUtils = require('../lib/uploadUtils')
 
 describe('Upload utils', () => {
 
-    var fsCreateReadStreamStub, fsCreateWriteStreamStub, fsUnlinkStub, s3PutObjectStub, uuidV4Stub
+    var fsCreateReadStreamStub, fsCreateWriteStreamStub, fsUnlinkStub, s3MakeRequestStub, uuidV4Stub
 
     beforeEach(() => {
 
@@ -25,7 +26,7 @@ describe('Upload utils', () => {
         fsUnlinkStub = sinon.stub(fs, 'unlink', (imagePath, callback) => { callback() })
         uuidV4Stub = sinon.stub(uuid, 'v4', () => 'tempName')
 
-        s3PutObjectStub = sinon.stub(AWS.S3.prototype, 'makeRequest', (op, params, callback) => {
+        s3MakeRequestStub = sinon.stub(AWS.S3.prototype, 'makeRequest', (op, params, callback) => {
 
             if (typeof params === 'function') {
                 callback = params;
@@ -45,7 +46,7 @@ describe('Upload utils', () => {
         fsCreateWriteStreamStub.restore()
         fsUnlinkStub.restore()
         uuidV4Stub.restore()
-        s3PutObjectStub.restore()
+        s3MakeRequestStub.restore()
     })
 
     it('save file, upload to s3 and delete the temp file', (done) => {
@@ -67,10 +68,14 @@ describe('Upload utils', () => {
                 expect(fsCreateReadStreamStub).to.have.been.calledOnce
                 expect(fsCreateReadStreamStub).to.have.been.calledWith(expectedTempFilePath)
 
-                expect(s3PutObjectStub).to.have.been.calledWith('putObject', sinon.match((params) => {
-                    return params.ContentType == 'stubContentType'
-                    && params.Bucket == 'stubBucket'
-                    && params.Key == expectedUploadPath
+                var expectedParams = {
+                    ContentType: 'stubContentType',
+                    Bucket: 'stubBucket',
+                    Key: expectedUploadPath
+                }
+
+                expect(s3MakeRequestStub).to.have.been.calledWith('putObject', sinon.match((params) => {
+                    return matches(params, expectedParams)
                 }))
 
                 expect(fsUnlinkStub).to.have.been.calledWith(expectedTempFilePath)
