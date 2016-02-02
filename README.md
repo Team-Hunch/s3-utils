@@ -16,6 +16,22 @@ The s3-utils initializer expects the following values to be provided via the `co
 - `uploadDirectory` - the directory in s3 to put the file into
 - `tempDirectory` - the directory where the uploaded file will be saved before uploading to s3. The file will be deleted from the location afterwards.
 
+### Initialize with config
+
+```
+const s3utils = require('s3-utils')
+
+var config = {
+    accessKeyId: "accessKey",
+    secretAccessKey: "secretAccessKey",
+    region: "awsRegion",
+    bucket: "someBucket",
+    uploadDirectory: "",
+    tempDirectory: ""
+}
+
+var utils = s3utils.init(config)
+```
 
 ### Upload image to s3
 
