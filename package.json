@@ -4,6 +4,8 @@
   "description": "",
   "main": "lib/uploadUtils",
   "scripts": {
+    "lint": "eslint lib/**",
+    "pretest": "npm run lint",
     "test": "mocha spec/**"
   },
   "repository": {
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^1.10.3",
     "mocha": "^2.4.5",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0"
